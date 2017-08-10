@@ -1,0 +1,319 @@
+<div style="margin-bottom:50px;">
+  
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <strong>Search Patient</strong>
+      </div>
+  
+      <div class="panel-body">
+        <form (submit)="searchPatient()" name="myForm" autocomplete="off">
+          <div class="row">
+            <label class="sucess-alert">  </label>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6" >
+              <input type="text" [(ngModel)]="SearchPatient" name="SearchPatient" placeholder="Search by Name, Patient Id, Phone Number" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <input type="submit" ng-click="submit(myForm)" [disabled]="SearchPatient == '' || SearchPatient == null" class="btn btn-primary" value="Submit">
+            </div>
+            <div class="col-md-2">
+              <input type="button" (click)="addPatient()" class="btn btn-primary" value="Add Patient">
+            </div>
+          </div>        
+        </form>
+  
+        <table name="UserInfo" id="UserInfo" class="table table-curved" *ngIf="hasRecord == true">
+          <thead>
+            <tr>
+              <th style="vertical-align: top!important">Patient ID</th>
+              <th style="vertical-align: top!important">Name</th>
+              <th style="vertical-align: top!important">C/o</th>
+              <th style="vertical-align: top!important">Sex</th>
+              <th style="vertical-align: top!important">Age</th>
+              <th style="vertical-align: top!important">Contact Number</th>
+              <th></th>
+          </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor="let patient of searchPatientInfo; let rowIndex = index" >
+              <td>{{patient.PatientId}} </td>
+              <td>{{patient.Name}} </td>
+              <td>{{patient.Care_Of}} </td>
+              <td>{{patient.Sex}} </td>
+              <td>{{patient.Age}} </td>
+              <td>{{patient.Contact_No}} </td>
+              <td>
+                  <div>
+                    <a [routerLink]="['/PatientHistory']" [queryParams]={id:patient.PatientId} class="btn btn-link">Select</a><br/>
+                  </div>
+                  <!--<div>
+                    <a [routerLink]="['/EditUserInfo']" [queryParams]={id:user.UserId} class="btn btn-link">Reset Password</a>
+                  </div>-->
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="hasRecord == false">
+            <tr>
+              <td colspan="7"><span class="text text-danger"> No Record Found</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div style="margin-bottom:50px;">
+  
+    <div class="panel panel-info" *ngIf="addPatientClicked">
+      <div class="panel-heading">
+        <strong>Add New Patient</strong>
+      </div>
+  
+      <div class="panel-body">
+        <form (submit)="insertPatient()" name="patient" ngNativeValidate>
+          <div class="row">
+            <label class="sucess-alert">  </label>
+          </div>
+  
+  
+          <div class="form-group row">
+            <div class="col-md-6" >
+              <label> Name </label>
+              <input type="text" [(ngModel)]="Name" name="Name" class="form-control">
+              <span class="text text-danger" >{{NameErr}} </span>
+            </div>
+            <div class="col-md-6" >
+              <label> C/o *</label>
+              <input type="text" [(ngModel)]="Careof" name="Careof" class="form-control">
+              <span class="text text-danger" >{{CareofErr}} </span>
+            </div>
+          </div>
+  
+          <div class="form-group row">
+            <div class="col-md-6" >
+              <label> Sex </label>
+              <br/>
+                <label class="radio-inline">
+                <input type="radio" [(ngModel)]="Sex" name="Sex" value="Male">  Male
+              </label>
+              <label class="radio-inline" >
+                <input type="radio" [(ngModel)]="Sex" name="Sex" value="Female">  Female
+              </label>
+              
+              
+            </div>
+            <div class="col-md-6" >
+              <label> Age *</label>
+              <input type="text" [(ngModel)]="Age" name="Age" class="form-control">
+              <span class="text text-danger" >{{AgeErr}} </span>
+            </div>
+          </div>
+  
+          <div class="form-group row">
+            <div class="col-md-6" >
+              <label> Contact No. </label>
+              <input type="text" [(ngModel)]="ContactNo" name="ContactNo" class="form-control">
+            </div>
+          </div>
+          <input type="submit" ng-click="submit(myForm)" class="btn btn-primary" value="Submit">
+          <a (click)="hideAddPatient()" class="btn btn-default">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  <!--
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#hello">
+    Launch Hello
+  </button>
+  
+  <div class="modal" id="hello">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <p>One fine body…</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    Launch demo modal
+  </button>
+  
+  <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalHorizontal">
+      Launch Horizontal Form
+  </button>
+  
+  <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" 
+       aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" 
+                     data-dismiss="modal">
+                         <span aria-hidden="true">&times;</span>
+                         <span class="sr-only">Close</span>
+                  </button>
+                  <h4 class="modal-title" id="myModalLabel">
+                      Modal title
+                  </h4>
+              </div>
+              
+              <div class="modal-body">
+                  
+                  <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                      <label  class="col-sm-2 control-label"
+                                for="inputEmail3">Email</label>
+                      <div class="col-sm-10">
+                          <input type="email" class="form-control" 
+                          id="inputEmail3" placeholder="Email"/>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label"
+                            for="inputPassword3" >Password</label>
+                      <div class="col-sm-10">
+                          <input type="password" class="form-control"
+                              id="inputPassword3" placeholder="Password"/>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                          <label>
+                              <input type="checkbox"/> Remember me
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Sign in</button>
+                      </div>
+                    </div>
+                  </form>
+                  
+                  
+                  
+                  
+                  
+                  
+              </div>
+              
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default"
+                          data-dismiss="modal">
+                              Close
+                  </button>
+                  <button type="button" class="btn btn-primary">
+                      Save changes
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  
+  
+  
+  
+  <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalNorm">
+      Launch Normal Form
+  </button>
+  
+  <div class="modal fade" id="myModalNorm" tabindex="-1" role="dialog" 
+       aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" 
+                     data-dismiss="modal">
+                         <span aria-hidden="true">&times;</span>
+                         <span class="sr-only">Close</span>
+                  </button>
+                  <h4 class="modal-title" id="myModalLabel">
+                      Modal title
+                  </h4>
+              </div>
+              
+              <div class="modal-body">
+                  
+                  <form role="form">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control"
+                        id="exampleInputEmail1" placeholder="Enter email"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control"
+                            id="exampleInputPassword1" placeholder="Password"/>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                          <input type="checkbox"/> Check me out
+                      </label>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                  </form>
+                  
+                  
+              </div>
+              
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default"
+                          data-dismiss="modal">
+                              Close
+                  </button>
+                  <button type="button" class="btn btn-primary">
+                      Save changes
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  
+  -->
+  
+  
+  <!--</div>-->
+  
+  

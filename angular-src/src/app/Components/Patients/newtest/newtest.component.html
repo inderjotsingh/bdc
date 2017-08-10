@@ -1,0 +1,181 @@
+<form (submit) = "onTestSubmit()">
+  <div class="row panel panel-danger">   
+    <div class="panel-heading">
+      <div class="row">
+          <div class="col-lg-8 col-md-8"><i class="fa fa-users"></i> {{PatientId}} - <span *ngIf="Sex == 'Male'">Mr.</span><span *ngIf="Sex == 'Female'">Ms.</span> {{Name}} - C/o {{Careof}}</div>
+      </div>
+    </div>               
+    <div class="panel-body">
+      <div class="form-group row">
+        <div class="col-md-3" >
+          <label> Date </label>
+          <my-date-picker [options]="myDatePickerOptions" (dateChanged)="TestDateChanged($event)"
+                    [(ngModel)]="TestDate" name="TestDate"></my-date-picker>
+          <span class="text text-danger" >{{TestDateErr}} </span>
+        </div>
+        <div class="col-md-3" >
+          <label> Referred By *</label>
+          <input type="text" [(ngModel)]="ReferredBy" name="ReferredBy" class="form-control">
+          <span class="text text-danger" >{{ReferredByErr}} </span>
+        </div>
+        <div class="col-md-3" >
+          <label> Sample Received at *</label>
+          <input type="text" [(ngModel)]="SampleReceivedTime" name="SampleReceivedTime" class="form-control">
+          <span class="text text-danger" >{{SampleReceivedTimeErr}} </span>
+        </div>
+        <div class="col-md-3" >
+          <label> Report Time *</label>
+          <input type="text" [(ngModel)]="ReportTime" name="ReportTime" class="form-control">
+          <span class="text text-danger" >{{ReportTimeErr}} </span>
+        </div>
+      </div>
+      <hr>
+  <!--
+        <div *ngFor="let test of allTestInfo; let rowIndex = index">
+        <div class="panel panel-default" (click)="clicked(rowIndex)">
+          <div class="panel-heading"> 
+              <div class="" style="cursor:pointer;">
+                <div > {{test.category_name}}</div>
+                
+              </div>
+          </div>
+          <div class="panel-body" *ngIf="test.show">
+                  <div class="names">
+                    <div class="fullName">{{test.category_name}}</div>
+                    <div>{{test.category_name}}</div>
+                  </div>
+                </div>
+        </div>
+        </div>
+      -->
+      <div class="row">
+      <div class="col-md-3 col-sm-3 col-lg-3" >
+        <div class="panel panel-heading panel-danger"><span style="color:#D9230F">Categories</span></div>
+        <div style="height:500px;overflow-y:scroll;">
+        <table class="table table-responsive" >
+          <tr *ngFor="let test of allTestInfo; let rowIndex = index">
+            <td>
+              <div style="cursor:pointer;">
+                  <div (click)="clicked(test.id);" id={{test.category_name}}> <span style="color:#D9831F">{{test.category_name}}</span> </div>
+                </div>
+            </td>
+          </tr>
+        </table>
+        </div>
+      </div>
+  
+      <div class="col-md-9 col-sm-9 col-lg-9"  *ngIf="DisplayTestInfo">
+        <div class="panel panel-heading panel-danger"><span style="color:#D9230F">Tests under selected Category</span></div>
+        <div style="height:500px;overflow-y:scroll;">
+        <table  class="table table-responsive">
+          <tr *ngFor="let test2 of TestInfo; let rowIndex = index">
+            <td>
+                <div class="names">
+                  <div *ngIf="getSelectedVal(test2.test_id) == true">
+                    <input type="checkbox" checked name="TestInfo" (change)="CheckTestId(test2.test_id)" value="{{test2.test_id}}" /> {{test2.test_name}} 
+                  </div> 
+                  <div *ngIf="getSelectedVal(test2.test_id) == false">
+                    <input type="checkbox" name="TestInfo" (change)="CheckTestId(test2.test_id)" value="{{test2.test_id}}" /> {{test2.test_name}} 
+                  </div> 
+                 
+                <!--<div class="fullName">{{test2.test_name}}</div>-->
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      </div>
+  
+      </div>
+  
+  <!--
+      <div class="row">
+      <div class="col-md-3">
+        <div *ngFor="let test of allTestInfo; let rowIndex = index">
+          <div class="" >
+            <div class=""> 
+                <div style="cursor:pointer;">
+                  <div (click)="clicked(test.id);" id={{test.category_name}}> {{test.category_name}}</div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-9">
+        <div *ngFor="let test2 of TestInfo; let rowIndex = index">
+          <div >
+          <div class="names">
+            <div class="fullName">{{test2.test_name}}</div>
+          </div>
+        </div>
+        </div>
+      </div>
+  
+      </div>-->
+  <hr>
+  
+    <div class="row" *ngIf="selectedTestInfo.length != 0">
+      <div class="col-md-12">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            Fee Information
+          </div>
+          <div class="panel-body">
+            <div class="col-md-12">
+              <div class="col-md-7">
+                <div class="col-md-12">
+                  <div class="col-md-8">
+                    <h4>Test</h4>
+                  </div>
+                  <div class="col-md-4">
+                    <h4>Amount (Rs.)</h4>
+                  </div>
+                </div>
+                <div class="col-md-12" *ngFor="let selectedTest of selectedTestInfo; let rowIndex = index">
+                  <div class="col-md-8">
+                    <p style="color:#4AA02C">(+) {{selectedTest.test_name}}</p>
+                  </div>
+                  <div class="col-md-4">
+                    <p style="color:#4AA02C">{{selectedTest.test_price}}</p>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="col-md-8"><p style="color:#4AA02C">(+) Door Step Charges</p></div>
+                  <div class="col-md-4"><input type="text" style="width:50px;" name="DoorStepCharges" (blur)="addDoorStepCharges($event)" value="0" /></div>
+                </div>
+                <div class="col-md-12">
+                  <div class="col-md-4"><p style="color:#F00">(-) Concession (%)</p></div>
+                  <div class="col-md-4"><input type="text" style="width:50px;" name="ConcessionPercent" (blur)="calculateConcession($event)" value="0" /></div>
+                  <div class="col-md-4">
+                    <p style="color:#F00">{{ConcessionAmount}}</p>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <hr/>
+                </div>
+                <div class="col-md-12">
+                  <div class="col-md-8"><h4>Total</h4></div>
+                  <div class="col-md-4"><h4>Rs. {{TotalFeePayable}}</h4></div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="col-md-12">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+    <div class="text-center">
+      <input type="submit" ng-click="submit(myForm)" class="btn btn-primary" value="Submit">
+      <a [routerLink]="['/PatientHistory']" [queryParams]={id:PatientId} class="btn btn-default">Back</a>
+      <!-- <a [routerLink]="['/PatientHistory']" class="btn btn-default">Back</a> -->
+    </div>
+    </div>
+  </div>
+  </form>

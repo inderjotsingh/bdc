@@ -1,0 +1,147 @@
+/* You can add global styles to this file, and also import other style files */
+/*@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,800);
+
+
+/*Table Format*/
+table{position: relative; padding: 0px; margin: 0px; }
+table th{padding: 8px; vertical-align:central; color:#f7f7d8; font-weight: normal;   font-size:14px;}
+table td{padding: 8px; vertical-align:central; font-size:14px; color:black}
+
+.table-hover tbody tr:hover td, table tbody tr.active td{background: #e8edff} 
+
+.table-curved {
+    padding: 18px;
+}
+
+.table-curved thead tr th {
+    border-top: none;
+    border-bottom: 1px solid #1c2739;
+    background-color:#E8AA47;
+    padding:8px;
+    color:#1c2739;
+}
+
+.table-curved tbody tr td {
+    padding:8px;
+}
+
+.table-curved tbody td {
+    border-top: none;
+    border-bottom: 1px solid #fff;
+    background-color:#D9EDF7;
+     
+}
+
+.table-curved th:first-child {
+    border-radius: 8px 0 0 0;
+    
+}
+.table-curved th:last-child {
+    border-radius: 0 8px 0 0;
+    
+}
+
+.table-curved tr:last-child td:first-child {
+    border-radius: 0 0 0 8px;
+}
+.table-curved tr:last-child td:last-child {
+    border-radius: 0 0 8px 0;
+}
+
+.table-responsive {
+    border:none;
+}
+
+
+.wintit {
+  background-color: #1c9e56;
+  border-bottom: medium none;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 1px 1px 5px #ccc;
+  height: 50px;
+  margin-bottom: 30px;
+  margin-left: 0 !important;
+  margin-top: 0;
+  vertical-align: middle;
+  width: 100%;
+}
+
+
+.table-curved thead tr th {
+  /*background-color: #1c9e56;*/
+  background-color: #D9831F;
+  
+  border-bottom: 1px solid #fff;
+  border-top: medium none;
+  color: #fff;
+  padding: 8px;
+}
+
+.table-curved tbody td {
+  background-color: #F9F8F6;
+  border-bottom: 1px solid #fff;
+  border-top: medium none;
+}
+
+.table-curved tbody tr:hover {
+  background-color: #a9dcc0;
+}
+
+
+ .panel-body{
+     background-color:rgba(217,237,246,0.1);
+ }
+ 
+
+  .required:after { content:" *"; 
+ color:red;
+ font-weight:bold;
+ }
+
+ .panel-body{
+     background-color:rgba(217,237,246,0.1);
+ }
+ 
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+

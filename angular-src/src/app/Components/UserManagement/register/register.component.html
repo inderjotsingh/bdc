@@ -1,0 +1,94 @@
+<div style="margin-bottom:50px;">
+  
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <strong>Register</strong>
+      </div>
+  
+      <div class="panel-body">
+        <form (submit)="registerUser()" name="myForm" ngNativeValidate>
+          <div class="row">
+            <label class="sucess-alert">  </label>
+          </div>
+        
+          <div class="form-group row">
+            <div class="col-md-6" >
+              <label> First Name *</label>
+              <input type="text" [(ngModel)]="FirstName" name="FirstName" class="form-control">
+            <span class="text text-danger" >{{FirstNameErr}} </span>
+            </div>
+            
+            <div class="col-md-6" >
+              <label> Middle Name </label>
+              <input type="text" [(ngModel)]="MiddleName" name="MiddleName" class="form-control">
+              <span class="text text-danger" >{{MiddleNameErr}} </span>
+            </div>
+          </div>
+  
+  
+           <div class="form-group row">
+            <div class="col-md-6" >
+              <label> Last Name *</label>
+              <input type="text" [(ngModel)]="LastName" name="LastName" class="form-control">
+              <span class="text text-danger" >{{LastNameErr}} </span>
+            </div>
+            <div class="col-md-6" >
+              <label> Phone Number * </label>
+              <input type="text" [(ngModel)]="PhoneNo" name="PhoneNo" class="form-control">
+              <span class="text text-danger" >{{PhoneNoErr}} </span>
+            </div>
+          </div>
+  
+          <div class="form-group row">
+            <div class="col-md-6" >
+              <label> Email ID *</label>
+              <input type="text" [(ngModel)]="EmailID" name="EmailID" class="form-control">
+              <span class="text text-danger" >{{EmailIDErr}} </span>
+            </div>
+            <div class="col-md-6" >
+              <label> Username * </label>
+              <input type="text" [(ngModel)]="Username" (blur)="checkUsernameAvailability($event)" name="Username" class="form-control">
+              <span *ngIf="showLoading">
+                <i class="fa fa-spinner fa-spin fa-2x fa-fw" style="color:#3a87ad;"></i>
+                <span class="sr-only">Loading...</span>
+              </span>
+              <span class="text text-success" >{{UsernameAvailable}} </span>
+              <span class="text text-danger" >{{UsernameUnAvailable}} </span>
+              <span class="text text-danger" >{{UsernameErr}} </span>
+            </div>
+          </div>
+  
+          <div class="form-group row">
+            <div class="col-md-6" >
+              <label> Password *</label>
+              <input type="password" [(ngModel)]="Password" name="Password" class="form-control">
+              <span class="text text-danger" >{{PasswordErr}} </span>
+            </div>
+            <div class="col-md-6" >
+              <label> Confirm Password * </label>
+              <input type="password" [(ngModel)]="ConfirmPassword" name="ConfirmPassword" class="form-control">
+              <span class="text text-danger" >{{ConfirmPasswordErr}} </span>
+            </div>
+          </div>
+  
+          <div class="form-group row">
+            <div class="col-md-6" >
+              <label> Role * </label>
+              <select  class="form-control" [(ngModel)]="Role" name="Role" type="role">
+              <option [ngValue]="undefined" selected>Select Role</option>
+              <option  value="OBSV">Observer</option>
+              <option  value="RECP">Receptionist</option>
+              <option  value="TECH">Lab Technician</option>
+              <option  value="ADMN">Administrator</option>
+            </select>
+              <span class="text text-danger" >{{RoleErr}} </span>
+            </div>
+          </div>
+  
+          <input type="submit" ng-click="submit(myForm)" class="btn btn-primary" value="Submit">
+          <a [routerLink]="['/Users']" class="btn btn-default">Back</a>
+        </form>
+      </div>
+    </div>
+  </div>
+  

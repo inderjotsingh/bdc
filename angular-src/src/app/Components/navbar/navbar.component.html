@@ -1,0 +1,52 @@
+<nav class="navbar navbar-default">  <!--navbar-inverse-->
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Blood Donors Council</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav pull-left">
+        <!--<li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>-->
+      </ul>
+
+      <ul class="nav navbar-nav pull-right">
+        <li *ngIf="!usermanagementService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['']" >Login</a></li>
+        <!--<li *ngIf="usermanagementService.loggedIn() && usermanagementService.UserRole === 'DDO'" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/Office']" >Office</a></li>
+        <li *ngIf="usermanagementService.loggedIn() &&usermanagementService.UserRole === 'DDO'" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/VehicleEntry']" >Vehicle Entry</a></li>-->
+        <li *ngIf="usermanagementService.loggedIn() && usermanagementService.UserRole === 'OBSV'" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/Reports']">Reports</a></li>
+        <li *ngIf="usermanagementService.loggedIn() && usermanagementService.UserRole === 'TECH'" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/Tests']">Tests</a></li>
+        
+        <li *ngIf="usermanagementService.loggedIn() && usermanagementService.UserRole === 'ADMN'"  class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Master <span class="caret"></span></a>
+          <ul class="dropdown-menu" aria-labelledby="themes">
+            <li *ngIf="usermanagementService.loggedIn() && usermanagementService.UserRole === 'ADMN'" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/Users']">User Management</a></li>
+            <!--<li *ngIf="usermanagementService.loggedIn() && usermanagementService.UserRole === 'ADMN'" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/Department']" >Departments</a></li>
+            <li *ngIf="usermanagementService.loggedIn() && usermanagementService.UserRole === 'ADMN'" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/Designation']" >Designation</a></li>
+            <li *ngIf="usermanagementService.loggedIn() && usermanagementService.UserRole === 'ADMN'" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/District']" >Districts</a></li>
+            <li *ngIf="usermanagementService.loggedIn() && usermanagementService.UserRole === 'ADMN'" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/Manufacturer']" >Manufacturers</a></li>
+            <li *ngIf="usermanagementService.loggedIn() && usermanagementService.UserRole === 'ADMN'" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/Model']" >Model</a></li>
+            <li *ngIf="usermanagementService.loggedIn() && usermanagementService.UserRole === 'ADMN'" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/Tehsil']" >Tehsils</a></li>
+            <li *ngIf="usermanagementService.loggedIn() && usermanagementService.UserRole === 'ADMN'" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/VehicleType']" >Vehicle Types</a></li>
+            -->
+          </ul>
+        </li>
+        <li *ngIf="usermanagementService.loggedIn()" class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Welcome  {{usermanagementService.getLoggedInUserInfo('Name')}}<span class="caret"></span></a>
+          <ul class="dropdown-menu" aria-labelledby="themes">
+            <li *ngIf="usermanagementService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/Profile']"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+            <li *ngIf="usermanagementService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact:true}"><a [routerLink]="['/ChangePassword']"><span class="glyphicon glyphicon-lock"></span> Change Password</a></li>
+            <li class="divider"></li>
+            <li *ngIf="usermanagementService.loggedIn()"><a (click)="onLogoutClick()" href="#"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>

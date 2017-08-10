@@ -1,0 +1,48 @@
+<div style="margin-bottom:50px;">
+  
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <strong>Pending Tests</strong>
+      </div>
+  
+      <div class="panel-body">
+        <div class="row" style="margin-bottom:15px;">
+          <div class="col-md-6">
+              <input type="text" (keyup)="searchTestInfo($event)" placeholder="Search by ReportID, Patient Name or Patient ID" ng-model="SearchParameter" name="SearchParameter" class="form-control">
+          </div>
+        </div>
+  
+          <table name="Model" id="Model" class="table table-curved">
+              <thead>
+              <tr>
+                  <th style="vertical-align: top!important">Report ID</th>
+                  <th style="vertical-align: top!important">Patient ID</th>
+                  <th style="vertical-align: top!important">Patient Name</th>
+                  <th style="vertical-align: top!important">Test Date</th>
+                  <!--<th style="vertical-align: top!important">Test Categories</th>-->
+                  <th></th>
+              </tr>
+              </thead>
+              <tbody *ngIf="hasRecord == true">
+                  <tr *ngFor="let test of testInfo; let rowIndex = index" >
+                  <td>{{test.ReportId}} </td>
+                  <td>{{test.PatientId}} </td>
+                  <td>{{test.Name}} </td>
+                  <td>{{test.TestDate | date: 'dd-MMM-yyyy'}} </td>
+                  <td>
+                      <div>
+                          <a [routerLink]="['/TestProcessing']" [queryParams]={id:test.ReportId} class="btn btn-link">Process</a>
+                      </div>
+                  </td>
+                  </tr>
+              </tbody>
+              <tbody *ngIf="hasRecord == false">
+                  <tr>
+                      <td colspan="6"><span class="text text-danger"> No Record Found</span></td>
+                  </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+  

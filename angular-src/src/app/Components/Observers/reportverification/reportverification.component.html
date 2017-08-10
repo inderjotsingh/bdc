@@ -1,0 +1,270 @@
+<div class="row panel panel-info" style="margin-top:2%;">   
+  <div class="panel-heading">
+    <div class="row">
+        <div class="col-lg-8 col-sm-8 col-md-8">
+          <i class="fa fa-users"></i> {{PatientId}} - <span *ngIf="Sex == 'Male'">Mr.</span><span *ngIf="Sex == 'Female'">Ms.</span> {{Name}} - C/o {{Careof}}
+        </div>
+        <div class="col-lg-4 col-sm-4 col-lg-4 text-right">
+          ReportID: {{ReportId}}
+        </div>
+    </div>
+  </div>         
+  <div class="panel-body">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="tab-content">
+                        <div id="VehicleInfo" class="tab-pane fade in active">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                      <tr>
+                                          <td class="text-info">Test Date</td>
+                                          <td>{{TestDate | date: 'dd-MMM-yyyy'}}</td>
+                                          <td class="text-info">Referred By</td>
+                                          <td>{{ReferredBy}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td class="text-info">Sample Received Time</td>
+                                          <td>{{SampleReceivedTime}}</td>
+                                          <td class="text-info">Report Time</td>
+                                          <td>{{ReportTime}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-info">Patient Test Receipt</td>
+                                        <td>
+                                            <a style="cursor:pointer;" (click)="downloadReceipt(ReportId)">Print Receipt</a>
+                                        </td>
+                                        <td class="text-info">Report</td>
+                                        <td>
+                                            <!-- <button (click)="printToCart('pdfReport')" class="button">Print</button> -->
+                                            <a style="cursor:pointer;" (click)="printToCart('pdfReport')">Print Report</a>
+                                            <!-- <a style="cursor:pointer;" (click)="downloadReport(ReportId)">Download Report</a> -->
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>  
+  </div>
+</div>
+
+
+<div id="pdfReport" style="display:none;">
+  <div id="Header" style="margin: auto;width: 100%;">
+    <strong>+ Blood Donors Council Charitable (Regd.) + <br/></strong>
+    <span>Rahon Road, Nawansharh, Distt. Shahid Bhagat Singh Nagar (Pb.) 144514 <br/>
+      Tel: 01823-221940 (Extn. 220974), Mob: 98154-98000<br/>
+      www.bloodbankbdcnsr.org<br/>
+      bdcnsr@hotmail.com 
+    </span>
+    <hr/>
+  </div>
+
+  <div id="patientInfo" style="font-size:12px;">
+    <div style="display: table; width: 100%; table-layout: fixed;border-spacing: 10px;">
+      <div style="display: table-cell;">
+        <span>Patient ID: {{PatientId}}</span>
+      </div>
+      <div style="display: table-cell;">
+          <span *ngIf="Sex == 'Male'">Mr.</span><span *ngIf="Sex == 'Female'">Ms.</span> {{Name}} - C/o {{Careof}}
+      </div>
+    </div>
+
+    <div style="display: table; width: 100%; table-layout: fixed;border-spacing: 10px;">
+      <div style="display: table-cell;">
+        <span>Report ID: {{ReportId}}</span>
+      </div>
+      <div style="display: table-cell;">
+          <span>Referred By: {{ReferredBy}}</span>
+      </div>
+    </div>
+
+    <div style="display: table; width: 100%; table-layout: fixed;border-spacing: 10px;">
+        <div style="display: table-cell;">
+          <span>Test Date: {{TestDate | date: 'dd-MMM-yyyy'}}</span>
+        </div>
+        <div style="display: table-cell;">
+            <span>Sample Received Time: {{SampleReceivedTime}}</span>
+        </div>
+        <div style="display: table-cell;">
+            <span>Report Time: {{ReportTime}}</span>
+        </div>
+      </div>
+  </div>
+  <hr/>
+
+
+  <div *ngFor="let category of distintCategories; let rowIndex = index" style="font-size:12px;">
+    <div id="category" style="margin: auto;width: 35%;margin-top:30px;">
+      <strong>{{category.category_name}}</strong> 
+    </div>
+    <div id="report">
+      <div *ngFor="let tests of distinctTests; let rowIndex1 = index">
+        <div *ngIf="tests.category_name == category.category_name">
+          <strong>{{tests.test_name}}</strong>
+          <div *ngFor="let allValue of allTestInfo; let rowIndex = index">
+            <div *ngIf="(allValue.test_name == tests.test_name) && (allValue.SubTest === 0 || (allValue.SubTest == 1 && allValue.SubTestId != 0))" style="display: table; width: 100%; table-layout: fixed;border-spacing: 10px;">
+                <div style="display: table-cell;">
+                    <div >
+                        <div>
+                          <p *ngIf="allValue.SubTest === 0">
+                              {{allValue.test_name}}
+                          </p>
+                          <p *ngIf="allValue.SubTest == 1 && allValue.SubTestId != 0">
+                              {{allValue.SubTestName}}
+                          </p>
+                        </div>
+                      </div>
+                </div>
+                <div style="display: table-cell;">{{allValue.Report}}</div>
+                <div style="display: table-cell;">{{allValue.test_range}}</div>
+              </div>
+          </div>
+          
+
+
+
+
+          <!-- <table>
+            <tr *ngFor="let allValue of allTestInfo; let rowIndex = index">
+              <td>
+                <div *ngIf="allValue.test_name == tests.test_name">
+                  <div *ngIf="allValue.SubTest === 0 || (allValue.SubTest == 1 && allValue.SubTestId != 0)">
+                    <p *ngIf="allValue.SubTest === 0">
+                        {{allValue.test_name}}
+                    </p>
+                    <p *ngIf="allValue.SubTest == 1 && allValue.SubTestId != 0">
+                        {{allValue.SubTestName}}
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                Result
+              </td>
+              <td>Range</td>
+            </tr>
+          </table> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="basic-table">
+<div #ref class="row panel panel-danger" style="margin-top:2%;" *ngFor="let category of distintCategories; let rowIndex = index">
+  <div class="panel-heading">
+    <div class="row">
+        <div class="col-md-12">
+          {{category.category_name}}
+        </div>
+    </div>
+  </div>         
+  <div class="panel-body">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="tab-content">
+                        <div id="VehicleInfo" class="tab-pane fade in active">
+                            <div class="table-responsive panel">
+                              <div *ngFor="let allValue of allTestInfo; let rowIndex = index">
+                                <div *ngIf="allValue.category_name == category.category_name">
+                                  <!--<div class="col-md-12">-->
+                                    <div class="col-md-12" *ngIf="allValue.SubTest === 0 || (allValue.SubTest == 1 && allValue.SubTestId != 0)">
+                                      <div class="col-md-4">
+                                        <div *ngIf="allValue.SubTest === 0">
+                                          {{allValue.test_name}}
+                                          <!--Hello World-->
+                                        </div>
+                                        <div *ngIf="allValue.SubTest == 1 && allValue.SubTestId != 0">
+                                          {{allValue.SubTestName}}
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4" *ngIf="allValue.SubTest === 0 || (allValue.SubTest == 1 && allValue.SubTestId != 0)">
+                                        <!--<input type="text" [(ngModel)]="mainObject[allValue.TestId.toString() + '_' + allValue.SubTestId.toString()]" name="mainObject[{{allValue.TestId}}]"  class="form-control"  id={{allValue.TestId}}_{{allValue.SubTestId}}  />-->
+
+                                        <!--<input type="text" [(ngModel)]="mainObject[allValue.TestId.toString() + '_' + allValue.SubTestId.toString()]" name="mainObject[{{allValue.TestId}}]"  class="form-control"  id={{allValue.TestId}}_{{allValue.SubTestId}} value={{allValue.Report}} />-->
+                                        <label >{{allValue.Report}}</label>
+                                      </div>
+                                      <div class="col-md-4" *ngIf="allValue.SubTest === 0 || (allValue.SubTest == 1 && allValue.SubTestId != 0)">
+                                        <label >{{allValue.test_range}}</label>
+                                      </div>
+                                    </div>
+                                  <!--</div>-->
+                                  
+                                </div>  
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>  
+  </div>
+</div>
+</div>
+
+
+<form (submit)="UpdateReportStatus()">
+  <div class="row panel panel-info" style="margin-top:2%;">   
+    <div class="panel-heading">
+      <div class="row">
+          <div class="col-lg-8 col-sm-8 col-md-8">
+            Status  
+          </div>
+      </div>
+    </div>         
+    <div class="panel-body">
+      <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                      <div class="tab-content">
+                          <div id="ReportInfo" class="tab-pane fade in active">
+                            <div class="col-md-6 col-sm-6 text-right" >
+                              <span class="text-info ">Report Status</span>
+                            </div>
+                            <div class="col-md-6 col-sm-6" style="margin-bottom:10px;">
+                              <select  class="form-control" [(ngModel)]="Status" name="Status" type="Status" style="width:200px;">
+                                <option [ngValue]="undefined" selected>Select Status</option>
+                                <option value="OBJ">Objection</option>
+                                <option value="VER">Verified</option>
+                              </select>
+                            </div>
+                            <br/>
+                            <div class="col-md-6 col-sm-6 text-right">
+                              <span class="text-info ">Comments</span>
+                            </div>
+                            <div class="col-md-6 col-sm-6"  style="margin-bottom:10px;">
+                              <textarea rows="4" cols="40" [(ngModel)] = "Comments" name="Comments"></textarea>
+                            </div>
+                          </div>
+                          <div class="text-center">
+                            <input type="submit" ng-click="submit(myForm)" id="Lock" class="btn btn-primary" value="Submit">
+                            <a [routerLink]="['/Reports']" class="btn btn-default">Back</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>  
+    </div>
+  </div>
+</form>
+
+
+
+  <br/>

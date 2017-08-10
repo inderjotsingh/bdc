@@ -1,0 +1,56 @@
+<div style="margin-bottom:50px;">
+  
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <strong>Users</strong>
+      </div>
+  
+      <div class="panel-body">
+        <div class="row" style="margin-bottom:15px;">
+          <div class="col-md-6">
+              <input type="text" (keyup)="searchUser($event)" placeholder="Search by User's Name, Username, Email ID, Phone Number, Role" ng-model="SearchParameter" name="SearchParameter" class="form-control">
+          </div>
+          <div class="col-md-6 text-right" style="margin-top:5px;">
+              <a [routerLink]="['/Register']" class="btn btn-primary">Add User</a>
+          </div>
+        </div>
+  
+          <table name="UserInfo" id="UserInfo" class="table table-curved">
+            <thead>
+              <tr>
+                <th style="vertical-align: top!important">Name</th>
+                <th style="vertical-align: top!important">Phone Number</th>
+                <th style="vertical-align: top!important">Email ID</th>
+                <th style="vertical-align: top!important">Username</th>
+                <th style="vertical-align: top!important">Role</th>
+                <th style="vertical-align: top!important">Is Blocked ?</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody *ngIf="hasRecord == true">
+                <tr *ngFor="let user of userInfo; let rowIndex = index" >
+                  <td>{{user.FirstName}} {{user.MiddleName}} {{user.LastName}} </td>
+                  <td>{{user.PhoneNo}} </td>
+                  <td>{{user.EmailId}} </td>
+                  <td>{{user.Username}} </td>
+                  <td>{{user.Role}} </td>
+                  <td>{{user.IsBlocked}} </td>
+                  <td>
+                      <div>
+                        <a [routerLink]="['/EditUserInfo']" [queryParams]={id:user.UserId} class="btn btn-link">Edit User</a><br/>
+                      </div>
+                      <!--<div>
+                        <a [routerLink]="['/EditUserInfo']" [queryParams]={id:user.UserId} class="btn btn-link">Reset Password</a>
+                      </div>-->
+                  </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="hasRecord == false">
+              <tr>
+                <td colspan="7"><span class="text text-danger"> No Record Found</span></td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>

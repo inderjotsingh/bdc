@@ -1,0 +1,27 @@
+{
+  "name": "blooddonorscouncil",
+  "version": "1.0.0",
+  "description": "Blood Donors Council",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "InfoESystems",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.15.3",
+    "jsonwebtoken": "^7.4.1",
+    "morgan": "^1.8.2",
+    "mssql": "^4.0.4",
+    "mydatepicker": "^2.0.26",
+    "nodemailer": "^4.0.1",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1",
+    "tedious": "^2.0.0",
+    "uuid-v4": "^0.1.0"
+  }
+}

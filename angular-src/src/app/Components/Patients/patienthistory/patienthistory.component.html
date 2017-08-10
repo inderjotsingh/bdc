@@ -1,0 +1,48 @@
+<div class="row panel panel-danger">   
+  <div class="panel-heading">
+    <div class="row">
+        <div class="col-lg-8 col-md-8"><i class="fa fa-users"></i> {{PatientId}} - <span *ngIf="Sex == 'Male'">Mr.</span><span *ngIf="Sex == 'Female'">Ms.</span> {{Name}} - C/o {{Careof}}</div>
+    </div>
+  </div>   
+  <div class="panel-body">
+
+    <div class="text-right" style="margin-bottom:10px;">
+      <a [routerLink]="['/NewTest']" [queryParams]={id:PatientId} class="btn btn-primary">Add New Test</a><br/>
+    </div>
+
+    <table name="UserInfo" id="UserInfo" class="table table-curved" *ngIf="hasRecord == true">
+        <thead>
+          <tr>
+            <th style="vertical-align: top!important">Report ID</th>
+            <th style="vertical-align: top!important">Test Date</th>
+            <th style="vertical-align: top!important">Referred By</th>
+            <th style="vertical-align: top!important">Fee Paid</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody >
+          <tr *ngFor="let patient of PatientHistoryReports; let rowIndex = index" >
+            <td>{{patient.ReportId}} </td>
+            <td>{{patient.TestDate}} </td>
+            <td>{{patient.ReferredBy}} </td>
+            <td>{{patient.FeePaid}} </td>
+            <td>
+                <div>
+                  <a style="cursor:pointer;" (click)="downloadReceipt(patient.ReportId)">Print Receipt</a>
+                  <!-- <div (click)="downloadReceipt(patient.ReportId)">Print Receipt</div> -->
+                  <!-- <a [routerLink]="['/PatientHistory']" [queryParams]={id:patient.PatientId} class="btn btn-link">Select</a><br/> -->
+                </div>
+                <!--<div>
+                  <a [routerLink]="['/EditUserInfo']" [queryParams]={id:user.UserId} class="btn btn-link">Reset Password</a>
+                </div>-->
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="hasRecord == false">
+          <tr>
+            <td colspan="5"><span class="text text-danger"> No Record Found</span></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
