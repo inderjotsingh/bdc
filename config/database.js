@@ -8,18 +8,6 @@ var dbConfig = {
     options:{
         instanceName: 'SQL',
     },
-
-    // user: 'db_usertest',
-    // password: 'IbkM2561#',
-    // server:'5.189.154.54',
-    // database: 'db_Labtest',  //bloodbanklab
-    // drive: 'tedious',
-    // options:{
-    //     instanceName: 'SQL',
-    // },
-
-
-
 }
 var connection = mssql.connect(dbConfig, function (err) {
     if (err)
